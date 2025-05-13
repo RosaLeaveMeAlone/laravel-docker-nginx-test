@@ -11,22 +11,8 @@ services:
     image: condimentos-app
     container_name: condimentos-app
     restart: unless-stopped
-    # volumes:
-      # - ./:/var/www/ # For local development 
     networks:
       - condimentos-network
-  
-  # nginx:
-  #   image: nginx:alpine
-  #   container_name: condimentos-nginx
-  #   restart: unless-stopped
-  #   ports:
-  #     - "6162:80"
-  #   volumes:
-  #     # - ./:/var/www/
-  #     - ./docker/nginx:/etc/nginx/conf.d
-  #   networks:
-  #     - condimentos-network
 
   nginx:
     build:
@@ -35,8 +21,6 @@ services:
     container_name: condimentos-nginx
     ports:
       - "6162:80"
-    # volumes:
-    #   - .:/var/www/ # si no usas el COPY, este permite live reload en dev
     networks:
       - condimentos-network
 

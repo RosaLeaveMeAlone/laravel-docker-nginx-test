@@ -22,6 +22,8 @@ RUN useradd -u $uid -ms /bin/bash -g www-data $user
 
 COPY . /var/www/html
 
+COPY ./docker/php/local.ini /usr/local/etc/php/conf.d/local.ini
+
 COPY --chown=$user:www-data . /var/www/html
 
 USER $user
