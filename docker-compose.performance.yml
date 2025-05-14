@@ -2,7 +2,7 @@
 
 services:
   condimentos-app:
-    container_name: condimentos-app
+    container_name: condimentos-app-test
     build:
       context: ./
       target: php

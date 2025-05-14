@@ -1,6 +1,8 @@
 #!/bin/bash
+set -e
 
 if [ ! -f "vendor/autoload.php" ]; then
+    echo "Installing composer dependencies"
     composer install --no-progress --no-interaction
 fi
 
