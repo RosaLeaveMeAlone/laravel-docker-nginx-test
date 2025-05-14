@@ -1,7 +1,7 @@
 
 
 services:
-  condimentos-app:
+  condimentos-app-test:
     container_name: condimentos-app-test
     build:
       context: ./
