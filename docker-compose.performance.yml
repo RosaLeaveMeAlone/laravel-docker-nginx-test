@@ -1,0 +1,50 @@
+
+
+services:
+  condimentos-app:
+    container_name: condimentos-app
+    build:
+      context: ./
+      target: php
+      dockerfile: Dockerfile.performance
+      args:
+        - user=laravel
+        - uid=1000
+        - APP_ENV=${APP_ENV}
+    image: condimentos-app
+    # restart: unless-stopped
+    networks:
+      - condimentos-network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    container_name: condimentos-nginx
+    ports:
+      - "6162:80"
+    networks:
+      - condimentos-network
+
+
+networks:
+  condimentos-network:
+    driver: bridge
+
+        # api:
+        # container_name: api
+        # build:
+        #     context: .
+        #     target: php
+        #     args:
+        #         - APP_ENV=${APP_ENV}
+        # environment:
+        #     - APP_ENV=${APP_ENV}
+        # working_dir: /var/www
+        # volumes:
+        #     - ./:/var/www
+        # ports:
+        #     - 9000:8080
+        # depends_on:
+        #     - database
+        #     - redis
