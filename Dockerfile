@@ -1,4 +1,4 @@
-FROM php:8.4-fpm
+FROM php:8.3-fpm
 
 ARG user
 ARG uid
@@ -10,11 +10,15 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     zip \
-    unzip
+    libzip-dev \
+    unzip \
+    libc6-dev \
+    g++ \
+    libicu-dev 
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl zip
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -25,6 +29,8 @@ COPY . /var/www/html
 COPY ./docker/php/local.ini /usr/local/etc/php/conf.d/local.ini
 
 COPY --chown=$user:www-data . /var/www/html
+
+RUN composer install --no-interaction --no-progress
 
 USER $user
 
